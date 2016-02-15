@@ -2,12 +2,17 @@ package com.chelseatroy.android.contentproviderspike;
 
 import android.app.ListActivity;
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CursorAdapter;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 
@@ -30,6 +35,15 @@ public class MasterActivity extends ListActivity implements LoaderManager.Loader
         setListAdapter(cursorAdapter);
 
         getLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id);
+
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     @Override
