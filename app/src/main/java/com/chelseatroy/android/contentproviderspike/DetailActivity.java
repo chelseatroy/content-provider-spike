@@ -6,7 +6,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -33,7 +32,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         return new CursorLoader(
                 this,
                 data,
-                new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME},
+                new String[]{"_id", "display_name"},
                 null,
                 null,
                 null

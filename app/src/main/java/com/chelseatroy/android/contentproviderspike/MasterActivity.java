@@ -1,5 +1,6 @@
 package com.chelseatroy.android.contentproviderspike;
 
+import android.app.IntentService;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.ContentUris;
@@ -27,7 +28,7 @@ public class MasterActivity extends ListActivity implements LoaderManager.Loader
                 this,
                 android.R.layout.simple_list_item_2,
                 null,
-                new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME},
+                new String[]{"_id", "display_name"},
                 new int[]{android.R.id.text1, android.R.id.text2},
                 0
         );
@@ -38,8 +39,16 @@ public class MasterActivity extends ListActivity implements LoaderManager.Loader
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+//        Intent intent = new Intent(this, ProjectsIntentService.class);
+//        startService(intent);
+    }
+
+    @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id);
+        Uri uri = ContentUris.withAppendedId(Uri.parse("content://com.chelseatroy.android.contentproviderspike/projects"), id);
 
         Intent intent = new Intent(this, DetailActivity.class);
         intent.setData(uri);
@@ -50,8 +59,8 @@ public class MasterActivity extends ListActivity implements LoaderManager.Loader
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(
                 this,
-                ContactsContract.Contacts.CONTENT_URI,
-                new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME},
+                Uri.parse("content://com.chelseatroy.android.contentproviderspike/projects"),
+                new String[]{"_id", "display_name"},
                 null,
                 null,
                 null
