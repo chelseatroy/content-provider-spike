@@ -20,11 +20,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         data = getIntent().getData();
 
-        getLoaderManager().initLoader(
-                0,
-                null,
-                this
-        );
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
