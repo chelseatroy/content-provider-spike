@@ -42,8 +42,8 @@ public class MasterActivity extends ListActivity implements LoaderManager.Loader
     protected void onResume() {
         super.onResume();
 
-//        Intent intent = new Intent(this, ProjectsIntentService.class);
-//        startService(intent);
+        Intent intent = new Intent(this, ProjectsIntentService.class);
+        startService(intent);
     }
 
     @Override

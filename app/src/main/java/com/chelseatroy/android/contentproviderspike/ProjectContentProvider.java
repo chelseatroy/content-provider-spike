@@ -79,7 +79,7 @@ public class ProjectContentProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         SQLiteDatabase db = projectsOpenHelper.getWritableDatabase();
-        long id = db.insert("projects", null, values);
+        long id = db.insertWithOnConflict("projects", null, values, SQLiteDatabase.CONFLICT_REPLACE);
         Uri uri1 = ContentUris.withAppendedId(Uri.parse("content://com.chelseatroy.android.contentproviderspike/projects"), id);
         getContext().getContentResolver().notifyChange(uri1, null);
         return uri1;
@@ -102,7 +102,7 @@ public class ProjectContentProvider extends ContentProvider {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table projects (_id integer primary key autoincrement, display_name varchar(255))");
+            db.execSQL("create table projects (_id integer primary key autoincrement, display_name varchar(255) unique)");
         }
 
         @Override
